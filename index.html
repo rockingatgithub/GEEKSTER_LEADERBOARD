@@ -56,7 +56,7 @@
 
             const playerData = { name: firstName + " " + lastName, 
                 country: country,
-                score: score
+                score: Number(score)
             }
 
             PlayersList.push(playerData)
@@ -76,6 +76,11 @@
                 const increaseScore = document.createElement('button')
                 const decreaseScore = document.createElement('button')
 
+                increaseScore.innerText = 'Increase'
+                decreaseScore.innerText = 'Decrease'
+                increaseScore.setAttribute('onclick', `increaseScoreHandler(${index})`)
+                decreaseScore.setAttribute('onclick', `decreaseScoreHandler(${index})`)
+
                 
                 curentScore.innerText = player.score
                 countryContent.innerText = player.country
@@ -86,6 +91,57 @@
                 
             }
 
+        }
+
+        function refreshList () {
+
+            const playerList = document.getElementById('player-list')
+            PlayersList.sort( (player1, player2) => parseInt(player2.score) - parseInt(player1.score) )
+
+            playerList.innerHTML = ''
+            for (let index = 0; index < PlayersList.length; index++) {
+                const player = PlayersList[index];
+
+                const liEl = document.createElement('li')
+                const nameContent = document.createElement('span')
+                const countryContent = document.createElement('span')
+                const curentScore = document.createElement('span')
+
+                
+
+                const increaseScore = document.createElement('button')
+                const decreaseScore = document.createElement('button')
+
+                increaseScore.innerText = 'Increase'
+                decreaseScore.innerText = 'Decrease'
+                increaseScore.setAttribute('onclick', `increaseScoreHandler(${index})`)
+                decreaseScore.setAttribute('onclick', `decreaseScoreHandler(${index})`)
+
+                
+                curentScore.innerText = player.score
+                countryContent.innerText = player.country
+                nameContent.innerText = player.name
+
+                liEl.append(nameContent, countryContent, curentScore, increaseScore, decreaseScore)
+                playerList.append(liEl)
+                
+            }
+        }
+
+        function increaseScoreHandler (index) {
+            console.log(PlayersList[index])
+
+            PlayersList[index].score += 5
+            refreshList()
+
+            console.log(PlayersList[index])
+
+        }
+
+
+        function decreaseScoreHandler (index) {
+            PlayersList[index].score -= 5
+            refreshList()
         }
 
     </script>

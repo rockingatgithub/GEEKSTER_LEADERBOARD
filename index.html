@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <main>
+        <h1> LEADERBOARD </h1>
+        <form onsubmit="addPlayer(event)">
+            
+            <div>
+                <label for="first-name"> First Name:- </label>
+                <input id="first-name" name="first-name" type="text" placeholder="First Name" />
+            </div>
+
+            <div>
+                <label for="last-name"> Last Name:- </label>
+                <input id="last-name" type="text" placeholder="Last Name" />
+            </div>
+
+            <div>
+                <label for="country">  Country:- </label>
+                <input id="country" type="text" placeholder="Country" />
+            </div>
+
+            <div>
+                <label for="score"> Score:- </label>
+                <input id="score" type="number" placeholder="Score" max="100" min="0" />
+            </div>
+
+            <button type="submit"> Submit </button>
+
+        </form>
+        <ul id="player-list">
+
+        </ul>
+    </main>
+
+    <script>
+
+        function addPlayer (event){
+
+            event.preventDefault()
+
+            const playerList = document.getElementById('player-list')
+
+            const firstName = document.getElementById('first-name').value
+            const lastName = document.getElementById('last-name').value
+            const country = document.getElementById('country').value
+            const score = document.getElementById('score').value
+
+            const liEl = document.createElement('li')
+            const nameContent = document.createElement('span')
+            const countryContent = document.createElement('span')
+            const curentScore = document.createElement('span')
+            
+            curentScore.innerText = score
+            countryContent.innerText = country
+            nameContent.innerText = firstName + " " + lastName
+
+            liEl.append(nameContent, countryContent, curentScore)
+            playerList.append(liEl)
+
+        }
+
+    </script>
+    
+</body>
+</html>

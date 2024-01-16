@@ -18,17 +18,17 @@
 
             <div>
                 <label for="last-name"> Last Name:- </label>
-                <input id="last-name" type="text" placeholder="Last Name" />
+                <input id="last-name" name="last-name" type="text" placeholder="Last Name" />
             </div>
 
             <div>
                 <label for="country">  Country:- </label>
-                <input id="country" type="text" placeholder="Country" />
+                <input id="country" name="country" type="text" placeholder="Country" />
             </div>
 
             <div>
                 <label for="score"> Score:- </label>
-                <input id="score" type="number" placeholder="Score" max="100" min="0" />
+                <input id="score" type="number" name="score" placeholder="Score" max="100" min="0" />
             </div>
 
             <button type="submit"> Submit </button>
@@ -41,6 +41,8 @@
 
     <script>
 
+        const PlayersList = []
+
         function addPlayer (event){
 
             event.preventDefault()
@@ -52,17 +54,37 @@
             const country = document.getElementById('country').value
             const score = document.getElementById('score').value
 
-            const liEl = document.createElement('li')
-            const nameContent = document.createElement('span')
-            const countryContent = document.createElement('span')
-            const curentScore = document.createElement('span')
-            
-            curentScore.innerText = score
-            countryContent.innerText = country
-            nameContent.innerText = firstName + " " + lastName
+            const playerData = { name: firstName + " " + lastName, 
+                country: country,
+                score: score
+            }
 
-            liEl.append(nameContent, countryContent, curentScore)
-            playerList.append(liEl)
+            PlayersList.push(playerData)
+            PlayersList.sort( (player1, player2) => parseInt(player2.score) - parseInt(player1.score) )
+
+            playerList.innerHTML = ''
+            for (let index = 0; index < PlayersList.length; index++) {
+                const player = PlayersList[index];
+
+                const liEl = document.createElement('li')
+                const nameContent = document.createElement('span')
+                const countryContent = document.createElement('span')
+                const curentScore = document.createElement('span')
+
+                
+
+                const increaseScore = document.createElement('button')
+                const decreaseScore = document.createElement('button')
+
+                
+                curentScore.innerText = player.score
+                countryContent.innerText = player.country
+                nameContent.innerText = player.name
+
+                liEl.append(nameContent, countryContent, curentScore, increaseScore, decreaseScore)
+                playerList.append(liEl)
+                
+            }
 
         }
 
